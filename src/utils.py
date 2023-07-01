@@ -1,4 +1,5 @@
 import json
+import os
 from abc import ABC, abstractmethod
 from pprint import pprint
 
@@ -38,4 +39,18 @@ class HaedHunter(WorkApi):
     def get_info(self):
         response = requests.get(self.url, params=self.__dict__)
         info = response.json()['items']
+        return info
+
+
+class SuperJob(WorkApi):
+    API_KEY = {'X-Api-App-Id': os.getenv('SUPERJOB_API_KEY')}
+    url = 'https://api.superjob.ru/2.0/vacancies/'
+
+    def __init__(self, text, city):
+        self.keyword = text
+        self.t = city
+
+    def get_info(self):
+        response = requests.get(self.url, headers=self.API_KEY, params=self.__dict__)
+        info = response.json()['objects']
         return info

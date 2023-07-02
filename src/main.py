@@ -2,6 +2,7 @@ from src.utils import WorkToUser
 
 
 def get_user(player, count):
+    """Выполняет запрос пользователя"""
 
     player.choice_site()  # выбор ресурса
     player.get_request()  # запрос
@@ -14,6 +15,8 @@ def get_user(player, count):
 
 
 def repeat_get(player):
+    """Повторяет запрос пользователя"""
+
     while True:
         try:
             choice_user = int(input('\n1 - Да\n2 - Нет\nХотите повторить запрос?'))
@@ -28,12 +31,14 @@ def repeat_get(player):
 
 
 def find_get(player):
+    """Ищет дополнительный запрос пользователя"""
+
     while True:
         try:
             choice_user = int(input('\n1 - Да\n2 - Нет\nХотите найти ключевое слово в вакансиях?'))
             if choice_user == 1:
                 data = input('Введите Ваш запрос: ')
-                player.find_word(data)
+                print(player.find_word(data))
             elif choice_user == 2:
                 break
             else:
@@ -59,6 +64,9 @@ def main():
     repeat_get(player)
     WorkToUser.sort_all()
     find_get(player)
+
+    print('\nСписок вакансий отсортированных по зарплате Вы можете посмотреть в файле - vacancies.json')
+    print('\nХорошего дня!')
 
 
 if __name__ == "__main__":

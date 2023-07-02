@@ -4,6 +4,7 @@ from src.work_vacancies import VacanciesHH, VacanciesSJ, VacanciesSort
 
 
 class WorkToUser:
+    """Взаимодействие с пользователем"""
 
     def __init__(self):
         self.site = None
@@ -19,6 +20,8 @@ class WorkToUser:
                f"\nКоличество вакансий - {self.quantity}"
 
     def choice_site(self):
+        """Выбирает платформу для поиска вакансий"""
+
         site_list = ['hh.ru', 'superjob.ru']
         while True:
             try:
@@ -33,9 +36,13 @@ class WorkToUser:
                 print("Некорректный ввод")
 
     def get_request(self):
+        """Получает запрос пользователя"""
+
         self.request = input("\nВведите Ваш зопрос по поиску вакансий: ")
 
     def choice_city(self):
+        """Выбирает город для поиска вакансий"""
+
         city_list = ['Россия', 'Москва', 'Санкт-Петербург']
         while True:
             try:
@@ -50,6 +57,8 @@ class WorkToUser:
                 print("Некорректный ввод")
 
     def quantity_vacancies(self):
+        """Получает количество искомых вакансий от пользователя"""
+
         if self.site == 'superjob.ru':
             self.quantity = 20
             print(f'Количество вакансий будет - {self.quantity}')
@@ -66,6 +75,8 @@ class WorkToUser:
                     print("Некорректный ввод")
 
     def work_api(self, number):
+        """Выполняет работу API по запросу пользователя"""
+
         total = []
         if self.site == 'hh.ru':
             city = {'Россия': 1, 'Москва': 1, 'Санкт-Петербург': 2}
@@ -87,6 +98,8 @@ class WorkToUser:
 
     @staticmethod
     def sort_all():
+        """Сортирует полученные вакансии"""
+
         all_vacancies = ReadWriteToJSON.read_json()
         total_vacancies = []
         for i in all_vacancies:
@@ -98,6 +111,8 @@ class WorkToUser:
         ReadWriteToJSON.write_json(info)
 
     def find_word(self, find_words):
+        """Выполняет поиск по ключевым словам пользователя"""
+
         info = ReadWriteToJSON.read_json()
         total = []
         for i in info:
@@ -116,4 +131,4 @@ class WorkToUser:
         if total == []:
             return f'Ваш запрос: {find_words} не найден!'
         else:
-            return total
+            return f'Ваш запрос: {find_words} встречается в следующих вакансиях\n{total}'

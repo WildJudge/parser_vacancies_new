@@ -3,6 +3,7 @@ import datetime
 
 
 class Vacancies(ABC):
+    """Абстрактный класс для вакансий"""
 
     @abstractmethod
     def __init__(self):
@@ -10,6 +11,7 @@ class Vacancies(ABC):
 
 
 class VacanciesHH(Vacancies):
+    """Класс для работы с вакансиями HeadHunter"""
 
     def __init__(self, info):
         self.url = info['alternate_url']
@@ -30,11 +32,17 @@ class VacanciesHH(Vacancies):
 
     @staticmethod
     def date_convesion(data):
+        """
+        Конвертирует дату в читаемый вид
+        :param data: str
+        :return: str
+        """
         data_format = datetime.datetime.strptime(data, '%Y-%m-%dT%H:%M:%S%z')
         return f"Дата создания вакансии: {datetime.datetime.strftime(data_format, '%d %B %Y %H:%M:%S %Z')}"
 
 
 class VacanciesSJ(Vacancies):
+    """Класс для работы с вакансиями SuperJob"""
 
     def __init__(self, info):
         self.url = info['link']
@@ -54,10 +62,16 @@ class VacanciesSJ(Vacancies):
 
     @staticmethod
     def date_convesion(data):
+        """
+        Конвертирует дату в читаемый вид
+        :param data: str
+        :return: str
+        """
         return f"Дата создания вакансии: {datetime.datetime.fromtimestamp(data).strftime('%d %B %Y %H:%M:%S')}"
 
 
 class VacanciesSort:
+    """Класс для работы с вакансиями в JSON-файле"""
 
     def __init__(self, url, title, city, salary_int, salary, requirements, date):
         self.url = url
@@ -69,4 +83,9 @@ class VacanciesSort:
         self.date = date
 
     def __lt__(self, other):
+        """
+        Сравнения вакансий по зарплате
+        :param other: экземпляк класса
+        :return: bool
+        """
         return self.salary_int < other.salary_int

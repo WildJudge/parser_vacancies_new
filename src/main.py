@@ -1,4 +1,5 @@
 from src.utils import WorkToUser
+from src.work_file import ReadWriteToJSON
 
 
 def get_user(player, count):
@@ -65,7 +66,10 @@ def main():
     WorkToUser.sort_all()
     find_get(player)
 
-    print('\nСписок вакансий отсортированных по зарплате Вы можете посмотреть в файле - vacancies.json')
+    if not ReadWriteToJSON.read_json():
+        print('\nПо Вашему запросу ничего не найдено')
+    else:
+        print('\nСписок вакансий отсортированных по зарплате Вы можете посмотреть в файле - vacancies.json')
     print('\nХорошего дня!')
 
 

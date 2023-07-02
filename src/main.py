@@ -1,18 +1,64 @@
+from src.utils import WorkToUser
+
+
+def get_user(player, count):
+
+    player.choice_site()  # выбор ресурса
+    player.get_request()  # запрос
+    player.choice_city()  # Выбор региона для поиска вакансий
+    player.quantity_vacancies()  # Количество вакансий
+
+    print(f'\n{player}')  # Показывает запрос
+
+    player.work_api(count)
+
+
+def repeat_get(player):
+    while True:
+        try:
+            choice_user = int(input('\n1 - Да\n2 - Нет\nХотите повторить запрос?'))
+            if choice_user == 1:
+                get_user(player, 1)
+            elif choice_user == 2:
+                break
+            else:
+                raise ValueError
+        except ValueError:
+            print("Некорректный ввод")
+
+
+def find_get(player):
+    while True:
+        try:
+            choice_user = int(input('\n1 - Да\n2 - Нет\nХотите найти ключевое слово в вакансиях?'))
+            if choice_user == 1:
+                data = input('Введите Ваш запрос: ')
+                player.find_word(data)
+            elif choice_user == 2:
+                break
+            else:
+                raise ValueError
+        except ValueError:
+            print("Некорректный ввод")
+
 
 def main():
-    while True:
 
-        # выбор ресурса
-        site_list = ['hh.ru', 'superjob.ru']
+    while input('Нажмите Enter, чтобы начать: ') != '':
+        continue
 
-        # запрос
-        user_request = input("Введите Ваш зопрос по поиску вакансий: ")
+    # Очищаем файл
+    f = open('vacancies.json', 'w')
+    f.close()
 
-        # Количество вакансий
-        quantity = int(input("Введите количество вакансий для вывода в топ: "))
+    print('\nПриветствую Вас! Подготовим Ваш запрос по поиску вакансий.')
 
-        # Фильтр запроса
-        filter_words = input("Введите ключевые слова для фильтрации вакансий: ").split()
+    player = WorkToUser()
+
+    get_user(player, 0)
+    repeat_get(player)
+    WorkToUser.sort_all()
+    find_get(player)
 
 
 if __name__ == "__main__":

@@ -29,6 +29,7 @@ class ReadWriteToJSON(WorkToFile):
     @staticmethod
     def add_json(data):
         all_data = ReadWriteToJSON.read_json()
-        all_data.append(data)
+        for i in data:
+            all_data.append(i)
         with open('vacancies.json', 'w', encoding='utf-8') as file:
             json.dump(all_data, file, indent=4, ensure_ascii=False)

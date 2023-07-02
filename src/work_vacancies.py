@@ -16,9 +16,16 @@ class VacanciesHH(Vacancies):
         self.title = info['name']
         self.city = info['area']['name']
         if info['salary'] == None:
+            self.salary_int = 0
             self.salary = 'Зарплата не указана'
         else:
-            self.salary = f"Зарплата {info['salary']['from']} {info['salary']['currency']}"
+            if info['salary']['from'] != None:
+                self.salary_int = info['salary']['from']
+                self.salary = f"Зарплата от {info['salary']['from']} {info['salary']['currency']}"
+            else:
+                self.salary_int = info['salary']['to']
+                self.salary = f"Зарплата до {info['salary']['to']} {info['salary']['currency']}"
+        self.requirements = f"{info['snippet']['requirement']} {info['snippet']['responsibility']}"
         self.date = self.date_convesion(info['created_at'])
 
     @staticmethod
@@ -33,9 +40,33 @@ class VacanciesSJ(Vacancies):
         self.url = info['link']
         self.title = info['profession']
         self.city = info['town']['title']
-        self.salary = f"Зарплата {info['payment_from']} {info['currency']}"
+        if info['payment_from'] == 0 and info['payment_to'] == 0:
+            self.salary_int = 0
+            self.salary = 'Зарплата не указана'
+        elif info['payment_from'] == 0:
+            self.salary_int = info['payment_to']
+            self.salary = f"Зарплата до {info['payment_to']} {info['currency']}"
+        else:
+            self.salary_int = info['payment_from']
+            self.salary = f"Зарплата от {info['payment_from']} {info['currency']}"
+        self.requirements = info['candidat']
         self.date = self.date_convesion(info['date_published'])
 
     @staticmethod
     def date_convesion(data):
         return f"Дата создания вакансии: {datetime.datetime.fromtimestamp(data).strftime('%d %B %Y %H:%M:%S')}"
+
+
+class VacanciesSort:
+
+    def __init__(self, url, title, city, salary_int, salary, requirements, date):
+        self.url = url
+        self.title = title
+        self.city = city
+        self.salary_int = salary_int
+        self.salary = salary
+        self.requirements = requirements
+        self.date = date
+
+    def __lt__(self, other):
+        return self.salary_int < other.salary_int

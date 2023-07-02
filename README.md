@@ -7,11 +7,11 @@
 ***
 
 <h3>Стек технологий:</h3>
-- certifi==2023.5.7
-- charset-normalizer==3.1.0
-- idna==3.4
-- requests==2.31.0
-- urllib3==2.0.3
+ - certifi==2023.5.7
+ - charset-normalizer==3.1.0
+ - idna==3.4
+ - requests==2.31.0
+ - urllib3==2.0.3
 
 <h3>Для запуска необходимо:</h3>
 - Cоздать виртуальное окружение

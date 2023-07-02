@@ -25,8 +25,15 @@ class Vacancies(ABC):
         pass
 
 
-class WriteInfo(ABC):
-    pass
+class WorkToFile(ABC):
+
+    @staticmethod
+    def read():
+        pass
+
+    @staticmethod
+    def write():
+        pass
 
 
 class HaedHunter(WorkApi):
@@ -57,7 +64,7 @@ class SuperJob(WorkApi):
         return info
 
 
-class Vacancies_HH(Vacancies):
+class VacanciesHH(Vacancies):
 
     def __init__(self, info):
         self.url = info['alternate_url']
@@ -75,11 +82,7 @@ class Vacancies_HH(Vacancies):
         return f"Дата создания вакансии: {datetime.datetime.strftime(data_format, '%d %B %Y %H:%M:%S %Z')}"
 
 
-    def write_to_file(self):
-        pass
-
-
-class Vacancies_SJ(Vacancies):
+class VacanciesSJ(Vacancies):
 
     def __init__(self, info):
         self.url = info['link']
@@ -93,5 +96,15 @@ class Vacancies_SJ(Vacancies):
         return f"Дата создания вакансии: {datetime.datetime.fromtimestamp(data).strftime('%d %B %Y %H:%M:%S')}"
 
 
-    def write_to_file(self):
-        pass
+class ReadWriteToJSON(WorkToFile):
+
+    @staticmethod
+    def read_json():
+        with open('vacancies.json', 'r', encoding='utf-8') as file:
+            data = json.load(file)
+            return data
+
+    @staticmethod
+    def write_json(data):
+        with open('vacancies.json', 'w', encoding='utf-8') as file:
+            json.dump(data, file, indent=4, ensure_ascii=False)

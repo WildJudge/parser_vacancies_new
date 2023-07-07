@@ -21,7 +21,7 @@ class HeadHunter(WorkApi):
 
     url = 'https://api.hh.ru/vacancies'
 
-    def __init__(self, text, per_page, city):
+    def __init__(self, text: str, per_page: int, city: int):
         self.text = text
         self.per_page = per_page
         self.area = city
@@ -42,7 +42,7 @@ class SuperJob(WorkApi):
     API_KEY = {'X-Api-App-Id': os.getenv('SUPERJOB_API_KEY')}
     url = 'https://api.superjob.ru/2.0/vacancies/'
 
-    def __init__(self, text, t=None, c=None):
+    def __init__(self, text: str, t=None, c=None):
         self.keyword = text
         self.t = t
         self.c = c

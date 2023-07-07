@@ -74,7 +74,7 @@ class WorkToUser:
                 except ValueError:
                     print("Некорректный ввод")
 
-    def work_api(self, number):
+    def work_api(self, number: int):
         """Выполняет работу API по запросу пользователя"""
 
         total = []
@@ -110,7 +110,7 @@ class WorkToUser:
             info.append(i.__dict__)
         ReadWriteToJSON.write_json(info)
 
-    def find_word(self, find_words):
+    def find_word(self, find_words: str):
         """Выполняет поиск по ключевым словам пользователя"""
 
         info = ReadWriteToJSON.read_json()

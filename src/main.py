@@ -2,7 +2,7 @@ from src.utils import WorkToUser
 from src.work_file import ReadWriteToJSON
 
 
-def get_user(player, count):
+def get_user(player, count: int):
     """Выполняет запрос пользователя"""
 
     player.choice_site()  # выбор ресурса

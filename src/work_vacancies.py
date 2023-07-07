@@ -73,7 +73,7 @@ class VacanciesSJ(Vacancies):
 class VacanciesSort:
     """Класс для работы с вакансиями в JSON-файле"""
 
-    def __init__(self, url, title, city, salary_int, salary, requirements, date):
+    def __init__(self, url: str, title: str, city: str, salary_int: int, salary: str, requirements: str, date: str):
         self.url = url
         self.title = title
         self.city = city

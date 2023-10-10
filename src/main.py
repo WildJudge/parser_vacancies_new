@@ -2,7 +2,7 @@ from src.utils import WorkToUser
 from src.work_file import ReadWriteToJSON
 
 
-def get_user(player, count: int):
+def get_user(player: WorkToUser, count: int):
     """Выполняет запрос пользователя"""
 
     player.choice_site()  # выбор ресурса
@@ -15,7 +15,7 @@ def get_user(player, count: int):
     player.work_api(count)
 
 
-def repeat_get(player):
+def repeat_get(player: WorkToUser):
     """Повторяет запрос пользователя"""
 
     while True:
@@ -31,7 +31,7 @@ def repeat_get(player):
             print("Некорректный ввод")
 
 
-def find_get(player):
+def find_get(player: WorkToUser):
     """Ищет дополнительный запрос пользователя"""
 
     while True:
